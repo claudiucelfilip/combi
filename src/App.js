@@ -3,31 +3,36 @@ import 'reflect-metadata';
 import 'zone.js';
 import logo from './logo.svg';
 import './App.css';
-import { Foo } from './components/Foo';
-import { Bar } from './components/Bar';
-import { Yarn } from './components/Yarn';
+import * as Components from './components';
+import { Angular } from './containers/Angular';
 
-import { Angular } from './components/Angular';
-
+const components = {
+  components: Object.keys(Components)
+    .filter(key => key !== '__esModule')
+    .filter(key => {
+      const instance = new Components[key]();
+      return !instance.type;
+    })
+    .map(key => Components[key])
+}
 
 class App extends Component {
-  render() {
-    let components = [Yarn, Bar];
+  render () {
+    
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <Foo />
-        
-        <Angular components={components}>
+
+        <Angular {...components}>
           <bar></bar>
           <yarn></yarn>
           <h1>Hello There</h1>
         </Angular>
-        
-        <Angular components={[Yarn]}>
+
+        <Angular {...components}>
           <h2>Another one</h2>
           <yarn></yarn>
         </Angular>

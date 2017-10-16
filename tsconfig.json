@@ -8,6 +8,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
